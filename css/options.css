@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 500px;
+}
+
+#app button {
+  width: 27%;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+h1,
+h2 {
+  text-align: center;
+  text-indent: -18px;
+}
+
+/* Fieldsets */
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul#list-of-examples {
+  margin-left: 15px;
+}
+
+ul#list-of-examples li {
+  margin: 5px 0;
+}
+
+ul#list-of-examples .name {
+  margin-right: 4px;
+}
+
+.up-down-arrow {
+  cursor: move;
+  font-size: 25px;
+  vertical-align: sub;
+}
+
+.name {
+  width: 167px;
+}
+
+.url {
+  width: 292px;
+}
+
+.separator {
+  border-top: 1px solid #bfbfbf;
+  display: inline-block;
+  width: 463px;
+  vertical-align: middle;
+}
+
+.remove-fieldset-button {
+  color: #f00;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+/* Buttons */
+
+#save-add-buttons-wrapper,
+#sort-alphabetically-button-wrapper,
+#import-load-defaults-export-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 467px;
+  margin-left: 16px;
+}
+
+#sort-alphabetically-button-wrapper {
+  justify-content: center;
+}
+
+#save-button {
+  position: relative;
+}
+
+#saved-notification {
+  position: absolute;
+  top: 3px;
+  left: -40px;
+}
+
+#close-button-wrapper {
+  text-align: center;
+  text-indent: -18px;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid #bfbfbf;
+  width: 467px;
+  margin: 14px auto;
+}
