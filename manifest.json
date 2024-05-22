@@ -14,7 +14,7 @@
     "storage"
   ],
   "background": {
-    "scripts": ["js/common.js", "js/event-page.js"]
+    "service_worker": "js/common.js"
   },
   "options_ui": {
     "page": "html/options.html"
