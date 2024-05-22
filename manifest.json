@@ -14,7 +14,6 @@
     "storage"
   ],
   "background": {
-    "persistent": false,
     "scripts": ["js/common.js", "js/event-page.js"]
   },
   "options_ui": {
