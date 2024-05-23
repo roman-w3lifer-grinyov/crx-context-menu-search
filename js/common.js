@@ -60,6 +60,7 @@ app.methods.setContextMenuItems = (fieldsets) => {
  */
 
 chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.set(app.initialStorage);
   chrome.storage.sync.get(null, (storage) => {
     if (!storage.fieldsets) {
       chrome.storage.sync.set(app.initialStorage);

@@ -61,31 +61,34 @@ window.addEventListener('DOMContentLoaded', () => {
   // Initialization - Examples
 
   (() => {
-    for (const index in app.initialStorage.fieldsets) {
-      const li = document.createElement('li');
-      const fieldset = app.initialStorage.fieldsets[index];
+    chrome.storage.local.get(null, (storage) => {
+      for (const index in storage.fieldsets) {
+        const li = document.createElement('li');
+        const fieldset = storage.fieldsets[index];
 
-      if (fieldset.name === '_separator_') {
-        const spanSeparator = document.createElement('span');
-        spanSeparator.className = 'separator';
-        li.appendChild(spanSeparator);
-      } else {
-        const nameInput = document.createElement('input');
-        nameInput.disabled = true;
-        nameInput.className = 'name';
-        nameInput.value = app.initialStorage.fieldsets[index].name;
+        if (fieldset.name === '_separator_') {
+          const spanSeparator = document.createElement('span');
+          spanSeparator.className = 'separator';
+          li.appendChild(spanSeparator);
+        } else {
+          const nameInput = document.createElement('input');
+          nameInput.disabled = true;
+          nameInput.className = 'name';
+          nameInput.value = storage.fieldsets[index].name;
 
-        const urlInput = document.createElement('input');
-        urlInput.disabled = true;
-        urlInput.className = 'url';
-        urlInput.value = app.initialStorage.fieldsets[index].url;
+          const urlInput = document.createElement('input');
+          urlInput.disabled = true;
+          urlInput.className = 'url';
+          urlInput.value = storage.fieldsets[index].url;
 
-        li.appendChild(nameInput);
-        li.appendChild(urlInput);
+          li.appendChild(nameInput);
+          li.appendChild(urlInput);
+        }
+
+        listOfExamples.appendChild(li);
       }
+    });
 
-      listOfExamples.appendChild(li);
-    }
   })();
 
   // Events
@@ -197,7 +200,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document
     .getElementById('load-defaults-button')
-    .addEventListener('click', () => setFieldsets(app.initialStorage.fieldsets));
+    .addEventListener('click', () => chrome.storage.local.get(null, (storage) => setFieldsets(storage.fieldsets)));
 
   // Events - Export
 
