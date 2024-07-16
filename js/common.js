@@ -84,6 +84,16 @@ chrome.contextMenus.onClicked.addListener(
   (info) => chrome.storage.sync.get(null, (storage) => {
     let url = storage.fieldsets[info.menuItemId].url;
     url = url.replace('%s', encodeURIComponent(info.selectionText));
-    chrome.tabs.create({url: url});
+    chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    }, tabs => {
+      let currentTab = tabs[0];
+      chrome.tabs.create({
+        url: url,
+        index: currentTab.index + 1,
+        openerTabId: currentTab.id,
+      });
+    });
   })
 );
