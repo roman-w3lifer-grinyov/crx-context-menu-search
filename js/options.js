@@ -88,7 +88,6 @@ window.addEventListener('DOMContentLoaded', () => {
         listOfExamples.appendChild(li);
       }
     });
-
   })();
 
   // Events
