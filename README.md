@@ -1,4 +1,4 @@
-# Context Menu Search
+# [Context Menu Search](https://chromewebstore.google.com/detail/idpcgabojogahgmhdgnjkmdliaeeofka)
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/idpcgabojogahgmhdgnjkmdliaeeofka)
 - [Installation for developers (for Linux users)](#installation-for-developers-for-linux-users)
