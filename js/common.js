@@ -27,7 +27,7 @@ app.initialStorage = {
     name: '_separator_',
   }, {
     name: 'Google Maps',
-    url: 'https://google.com/maps/search/%s',
+    url: 'https://www.google.com/maps/search/%s',
   }, {
     name: 'Yandex Maps',
     url: 'https://yandex.com/maps?text=%s',
