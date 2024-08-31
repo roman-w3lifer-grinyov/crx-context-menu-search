@@ -7,6 +7,36 @@ app.methods = {};
 app.initialStorage = {
   fieldsets: [{
     name: 'Google - Exact match',
+    url: 'https://www.google.com/search?q="%s"',
+  }, {
+    name: 'Google Images',
+    url: 'https://www.google.com/search?q=%s&tbm=isch',
+  }, {
+    name: 'Facebook',
+    url: 'https://www.facebook.com/search?q=%s',
+  }, {
+    name: 'YouTube',
+    url: 'https://www.youtube.com/results?search_query=%s',
+  }, {
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/search?q=hello',
+  }, {
+    name: 'Wikipedia',
+    url: 'https://wikipedia.org/w/index.php?search=%s',
+  }, {
+    name: '_separator_',
+  }, {
+    name: 'Google Maps',
+    url: 'https://google.com/maps/search/%s',
+  }, {
+    name: 'Yandex Maps',
+    url: 'https://yandex.com/maps?text=%s',
+  }],
+};
+
+app.oldInitialStorage = {
+  fieldsets: [{
+    name: 'Google - Exact match',
     url: 'https://google.com/search?q="%s"',
   }, {
     name: 'Google Images',
@@ -60,11 +90,25 @@ app.methods.setContextMenuItems = (fieldsets) => {
  */
 
 chrome.runtime.onInstalled.addListener(() => {
+  // `chrome.storage.local.set(app.initialStorage)` is needed to access the initial fieldsets on Options page
+  // (see Initialization section)
   chrome.storage.local.set(app.initialStorage);
   chrome.storage.sync.get(null, (storage) => {
     if (!storage.fieldsets) {
       chrome.storage.sync.set(app.initialStorage);
     } else { // When the page reloads
+      if (
+        storage.fieldsets.every(
+        (fieldset, index) =>
+          app.oldInitialStorage.fieldsets[index]
+          &&
+          fieldset.name === app.oldInitialStorage.fieldsets[index].name
+          &&
+          fieldset.url === app.oldInitialStorage.fieldsets[index].url
+        )
+      ) {
+        chrome.storage.sync.set(app.initialStorage);
+      }
       app.methods.setContextMenuItems(storage.fieldsets);
     }
   });
