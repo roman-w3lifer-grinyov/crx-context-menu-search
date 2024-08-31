@@ -210,7 +210,10 @@ window.addEventListener('DOMContentLoaded', () => {
     .addEventListener('click', () => {
       chrome.storage.sync.get(null, (storage) => {
         const result = JSON.stringify(storage);
-        const url = 'data:application/json;base64,' + btoa(result);
+        // `unescape(encodeURIComponent())` is needed to avoid the following error:
+        // Failed to execute 'btoa' on 'Window':
+        // The string to be encoded contains characters outside of the Latin1 range.
+        const url = 'data:application/json;base64,' + btoa(unescape(encodeURIComponent(result)));
         chrome.downloads.download({
           url: url,
           filename: 'context-menu-search.json',
