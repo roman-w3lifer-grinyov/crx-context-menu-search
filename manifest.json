@@ -2,14 +2,14 @@
   "manifest_version": 3,
   "name": "Context Menu Search",
   "description": "Search for selected text using the context menu",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "icons": {
     "16": "img/icons/search-zoom/16x16.png",
     "48": "img/icons/search-zoom/48x48.png",
     "128": "img/icons/search-zoom/128x128.png"
   },
   "background": {
-    "service_worker": "js/common.js"
+    "service_worker": "js/service-worker.js"
   },
   "options_ui": {
     "page": "html/options.html"
