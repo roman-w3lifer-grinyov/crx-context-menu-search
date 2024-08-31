@@ -66,14 +66,14 @@ app.methods.setContextMenuItems = (fieldsets) => {
     if (fieldsets[index].name === '_separator_') {
       chrome.contextMenus.create({
         id: index,
-        contexts: ['selection'],
+        contexts: ['selection', 'image'],
         type: 'separator',
       });
     } else {
       chrome.contextMenus.create({
         id: index,
         title: fieldsets[index].name,
-        contexts: ['selection'],
+        contexts: ['selection', 'image'],
       });
     }
   }
@@ -127,7 +127,7 @@ chrome.storage.onChanged.addListener((changes) =>
 chrome.contextMenus.onClicked.addListener(
   (info) => chrome.storage.sync.get(null, (storage) => {
     let url = storage.fieldsets[info.menuItemId].url;
-    url = url.replace('%s', encodeURIComponent(info.selectionText));
+    url = url.replace('%s', encodeURIComponent(info.srcUrl || info.selectionText));
     chrome.tabs.query({
       active: true,
       currentWindow: true,
