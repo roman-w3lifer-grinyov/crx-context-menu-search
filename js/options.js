@@ -185,7 +185,6 @@ window.addEventListener('DOMContentLoaded', () => {
         reader.onload = () => {
           const storage = JSON.parse('' + reader.result);
           setFieldsets(storage.fieldsets);
-          saveButton.click();
         };
         reader.readAsText(file);
         form.reset();

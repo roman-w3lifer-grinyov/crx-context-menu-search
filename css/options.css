@@ -84,10 +84,6 @@ ul#list-of-examples .name {
   margin-left: 16px;
 }
 
-#sort-alphabetically-button-wrapper {
-  justify-content: center;
-}
-
 #save-button {
   position: relative;
 }
@@ -96,6 +92,16 @@ ul#list-of-examples .name {
   position: absolute;
   top: -1px;
   left: -43px;
+}
+
+#sort-alphabetically-button-wrapper {
+  justify-content: center;
+}
+
+#import-load-defaults-tooltip {
+  color: #f00;
+  margin-bottom: 14px;
+  text-align: center;
 }
 
 #close-button-wrapper {
