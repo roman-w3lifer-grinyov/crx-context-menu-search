@@ -99,12 +99,12 @@ chrome.runtime.onInstalled.addListener(() => {
     } else { // When the page reloads
       if (
         storage.fieldsets.every(
-        (fieldset, index) =>
-          app.oldInitialStorage.fieldsets[index]
-          &&
-          fieldset.name === app.oldInitialStorage.fieldsets[index].name
-          &&
-          fieldset.url === app.oldInitialStorage.fieldsets[index].url
+          (fieldset, index) =>
+            app.oldInitialStorage.fieldsets[index]
+            &&
+            fieldset.name === app.oldInitialStorage.fieldsets[index].name
+            &&
+            fieldset.url === app.oldInitialStorage.fieldsets[index].url
         )
       ) {
         chrome.storage.sync.set(app.initialStorage);
