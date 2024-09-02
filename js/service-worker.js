@@ -19,7 +19,7 @@ app.initialStorage = {
     url: 'https://www.youtube.com/results?search_query=%s',
   }, {
     name: 'TikTok',
-    url: 'https://www.tiktok.com/search?q=hello',
+    url: 'https://www.tiktok.com/search?q=%s',
   }, {
     name: 'Wikipedia',
     url: 'https://wikipedia.org/w/index.php?search=%s',
@@ -96,7 +96,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.get(null, (storage) => {
     if (!storage.fieldsets) {
       chrome.storage.sync.set(app.initialStorage);
-    } else { // When the page reloads
+    } else {
       if (
         storage.fieldsets.every(
           (fieldset, index) =>
@@ -109,7 +109,17 @@ chrome.runtime.onInstalled.addListener(() => {
       ) {
         chrome.storage.sync.set(app.initialStorage);
       }
-      app.methods.setContextMenuItems(storage.fieldsets);
+      chrome.storage.sync.get(null, (storage) => {
+        // Bugfix
+        storage.fieldsets.forEach(item => {
+          if (item.url === 'https://www.tiktok.com/search?q=hello') {
+            item.url = 'https://www.tiktok.com/search?q=%s'
+          }
+        })
+        chrome.storage.sync.set(storage);
+        // /Bugfix
+        app.methods.setContextMenuItems(storage.fieldsets);
+      })
     }
   });
 });
