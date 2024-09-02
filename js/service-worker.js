@@ -1,8 +1,17 @@
-;'use strict';
 
-const app = {};
+/* global app, chrome */
 
-app.methods = {};
+/**
+ * @property chrome.contextMenus.onClicked
+ * @property chrome.contextMenus.removeAll
+ * @property chrome.storage.onChanged
+ * @property chrome.runtime.onInstalled
+ * @property chrome.storage.sync
+ */
+
+const app = {}
+
+app.methods = {}
 
 app.initialStorage = {
   fieldsets: [{
@@ -32,7 +41,7 @@ app.initialStorage = {
     name: 'Yandex Maps',
     url: 'https://yandex.com/maps?text=%s',
   }],
-};
+}
 
 app.oldInitialStorage = {
   fieldsets: [{
@@ -59,43 +68,33 @@ app.oldInitialStorage = {
     name: 'Yandex Maps',
     url: 'https://yandex.com/maps?text=%s',
   }],
-};
+}
 
-app.methods.setContextMenuItems = (fieldsets) => {
+app.methods.setContextMenuItems = fieldsets => {
   for (const index in fieldsets) {
     if (fieldsets[index].name === '_separator_') {
       chrome.contextMenus.create({
         id: index,
         contexts: ['selection', 'image'],
         type: 'separator',
-      });
+      })
     } else {
       chrome.contextMenus.create({
         id: index,
         title: fieldsets[index].name,
         contexts: ['selection', 'image'],
-      });
+      })
     }
   }
-};
+}
 
-/* global app, chrome */
-
-/**
- * @property chrome.contextMenus.onClicked
- * @property chrome.contextMenus.removeAll
- * @property chrome.storage.onChanged
- * @property chrome.runtime.onInstalled
- * @property chrome.storage.sync
- */
-
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(_ => {
   // `chrome.storage.local.set(app.initialStorage)` is needed to access the initial fieldsets on Options page
   // (see Initialization section)
-  chrome.storage.local.set(app.initialStorage);
-  chrome.storage.sync.get(null, (storage) => {
+  chrome.storage.local.set(app.initialStorage)
+  chrome.storage.sync.get(null, storage => {
     if (!storage.fieldsets) {
-      chrome.storage.sync.set(app.initialStorage);
+      chrome.storage.sync.set(app.initialStorage)
     } else {
       if (
         storage.fieldsets.every(
@@ -107,47 +106,47 @@ chrome.runtime.onInstalled.addListener(() => {
             fieldset.url === app.oldInitialStorage.fieldsets[index].url
         )
       ) {
-        chrome.storage.sync.set(app.initialStorage);
+        chrome.storage.sync.set(app.initialStorage)
       }
-      chrome.storage.sync.get(null, (storage) => {
+      chrome.storage.sync.get(null, storage => {
         // Bugfix
         storage.fieldsets.forEach(item => {
           if (item.url === 'https://www.tiktok.com/search?q=hello') {
             item.url = 'https://www.tiktok.com/search?q=%s'
           }
         })
-        chrome.storage.sync.set(storage);
+        chrome.storage.sync.set(storage)
         // /Bugfix
-        app.methods.setContextMenuItems(storage.fieldsets);
+        app.methods.setContextMenuItems(storage.fieldsets)
       })
     }
-  });
-});
+  })
+})
 
-chrome.storage.onChanged.addListener((changes) =>
+chrome.storage.onChanged.addListener(changes =>
   chrome.contextMenus.removeAll(
-    () => app.methods.setContextMenuItems(changes.fieldsets.newValue)
+    _ => app.methods.setContextMenuItems(changes.fieldsets.newValue)
   )
-);
+)
 
 /**
  * @param {String} info.menuItemId
  * @param {String} info.selectionText
  */
 chrome.contextMenus.onClicked.addListener(
-  (info) => chrome.storage.sync.get(null, (storage) => {
-    let url = storage.fieldsets[info.menuItemId].url;
-    url = url.replace('%s', encodeURIComponent(info.srcUrl || info.selectionText));
+  info => chrome.storage.sync.get(null, storage => {
+    let url = storage.fieldsets[info.menuItemId].url
+    url = url.replace('%s', encodeURIComponent(info.srcUrl || info.selectionText))
     chrome.tabs.query({
       active: true,
       currentWindow: true,
     }, tabs => {
-      let currentTab = tabs[0];
+      let currentTab = tabs[0]
       chrome.tabs.create({
         url: url,
         index: currentTab.index + 1,
         openerTabId: currentTab.id,
-      });
-    });
+      })
+    })
   })
-);
+)
