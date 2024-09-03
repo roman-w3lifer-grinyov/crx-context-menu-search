@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Context Menu Search",
   "description": "Search for selected text or image URL using the context menu",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "icons": {
     "16": "img/icons/search-zoom/16x16.png",
     "48": "img/icons/search-zoom/48x48.png",

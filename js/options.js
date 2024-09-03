@@ -170,9 +170,7 @@ window.addEventListener('DOMContentLoaded', _ => {
 
   // Events - Import
 
-  /**
-   * @see https://stackoverflow.com/a/36930012/4223982
-   */
+  // https://stackoverflow.com/a/36930012/4223982
   document
     .getElementById('import-button')
     .addEventListener('click', _ => {
@@ -201,9 +199,7 @@ window.addEventListener('DOMContentLoaded', _ => {
 
   // Events - Export
 
-  /**
-   * @see https://stackoverflow.com/a/23167789/4223982
-   */
+  // https://stackoverflow.com/a/23167789/4223982
   document
     .getElementById('export-button')
     .addEventListener('click', _ => {
